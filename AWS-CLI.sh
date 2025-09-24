@@ -15,6 +15,6 @@ for instance in $@
         IP=$(aws ec2 describe-instances --instance-ids $INSTA_ID --query 'Reservations[0].Instances[0].PublicIpAddress' --output text	)
     fi
 
-    echo" $instance=$IP "
+    echo " $instance=$IP "
 
     done 
