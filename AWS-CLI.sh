@@ -6,7 +6,7 @@ Zone_ID="Z0212707MY585LOOEFGA"
 Domain="kriiishmatic.fun"
 
 for instance in $@
-    do
+do
     INSTA_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t3.micro --security-group-ids $SG_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" --query 'Instances[0].InstanceId' --output text)
     
     if [ $instance != "frontend" ]; then
@@ -38,4 +38,4 @@ for instance in $@
         }]
     }
 
-    done 
+done 
