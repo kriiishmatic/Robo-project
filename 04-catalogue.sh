@@ -93,7 +93,7 @@ Status $? "Enabled the node"
 systemctl start catalogue &>>$Logfile
 Status $? "Start it "
 
-cp $DIR/mongo.rep /etc/yum.repos.d/mongo.repo
+cp $DIR/mongo.repo /etc/yum.repos.d/mongo.repo
 Status $? "Mongo repo is here"
 
 dnf install mongodb-mongosh -y &>>$Logfile
