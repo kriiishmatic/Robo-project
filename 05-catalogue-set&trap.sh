@@ -51,7 +51,6 @@ fi
 
 mkdir -p /app 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
-Status $? "Dowloadting code zip"
 cd /app 
 rm -rf /app/*
 
