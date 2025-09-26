@@ -107,7 +107,7 @@ echo -e " Already loaded products and masterdata so $Y skipping $N "
 fi
 
 
-dnf restart catalogue.service &>>$Logfile
+dnf restart catalogue &>>$Logfile
 Status $? "Restarted the service"
 
 echo -e " Loading products into DB and $G restarted the catalogue $N "
