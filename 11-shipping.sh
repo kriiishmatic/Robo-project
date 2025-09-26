@@ -90,12 +90,14 @@ Status $? "Start it "
 
 ########### Installing Mysql #################
 dnf install mysql -y 
-mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/schema.sql
-Status $? " Loading schema from mysql "
-mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/app-user.sql 
-Status $? " Setting password "
-mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/master-data.sql
-
+mysql -h $MysqlDomain -uroot -pRoboShop@1 -e 'use mysql' &>>$Logfile
+if [ $? -ne 0 ]; then
+    mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/schema.sql &>>$Logfile
+    mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$Logfile
+    mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$Logfile
+else
+    echo -e " Database Schema is already Loaded $Y skiping $N "
+fi
 systemctl restart shipping &>>$Logfile
 Status $? "Restarted the service"
 
