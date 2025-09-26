@@ -70,10 +70,10 @@ Status $? "Dowloadting code zip"
 
 
 cd /app 
-rm -r /app*
+rm -rf /app/*
 Status $? "Removed previous code"
 
-unzip /tmp/catalogue.zip
+unzip /tmp/catalogue.zip &>>$Logfile
 Status $? "unzipping latest code"
 
 cd /app 
