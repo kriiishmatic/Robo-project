@@ -13,7 +13,7 @@ if [ $USERID -ne 0 ]; then
     echo -e " $R Get sudo access BOZO $N "
     exit 3
 fi
-
+MysqlDomian="mysql.kriiishmatic.fun"
 
 #creating logs files
 ####################
@@ -86,6 +86,16 @@ Status $? "Enabled the node"
 systemctl start shipping &>>$Logfile
 Status $? "Start it "
 
+
+
+########### Installing Mysql #################
+dnf install mysql -y 
+mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/schema.sql
+Status $? " Loading schema from mysql "
+mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/app-user.sql 
+Status $? " Setting password "
+mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/master-data.sql
+
 systemctl restart shipping &>>$Logfile
 Status $? "Restarted the service"
 
@@ -94,5 +104,5 @@ echo -e " Restarted $G shipping $N "
 End=$( date +%s )
 Time=$(( $Start - $End ))
 
-echo " Time Taken to setup ::: $G $Time $N "
+echo -e " Time Taken to setup ::: $G $Time $N "
 
