@@ -89,7 +89,9 @@ Status $? "Start it "
 
 
 ########### Installing Mysql #################
-dnf install mysql -y 
+dnf install mysql -y &>>$Logfile
+Status $? "Installed mysql "
+
 mysql -h $MysqlDomain -uroot -pRoboShop@1 -e 'use mysql' &>>$Logfile
 if [ $? -ne 0 ]; then
     mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/schema.sql &>>$Logfile
