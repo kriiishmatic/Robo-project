@@ -29,7 +29,7 @@ mkdir -p $shell_log
 Remove_sh=$( echo $0 | cut -d "." -f1 )
 
 Logfile="$shell_log/$Remove_sh.log"
-DIR=$(pwd)
+Start=$(date +%s)
 
 echo " Script started at :: $(date) " | tee -a $Logfile
 
@@ -45,14 +45,18 @@ fi
 dnf module disable redis -y &>>$Logfile
 Status $? " Disabling redis "
 dnf module enable redis:7 -y &>>$Logfile
-Status $? " enaabling redis "
+Status $? " enabling redis "
 dnf install redis -y &>>$Logfile
 Status $? " installing redis "
 sed -i -e 's/127\.0\.0\.1/0.0.0.0/' -e 's/protected-mode yes/protected-mode no/' /etc/redis/redis.conf
 Status $? " changed allowed traffic"
 
 systemctl enable redis &>>$Logfile
-Status $? " enaabling redis "
+Status $? " enabling redis "
 systemctl start redis &>>$Logfile
-Status $? " atarting redis "
+Status $? " starting redis "
 
+End=$(date +%s)
+Time=($Start-$End)
+
+echo  -e " TIME TAKEN TO FINISH INSTALATION ::: $G $Time $N "
