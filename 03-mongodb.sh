@@ -45,19 +45,18 @@ fi
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 Status $? "created repo "
 
-dnf install mongodb-org -y &>>$shell_log
+dnf install mongodb-org -y &>>$Logfile
 Status $? "Installed mongodb::sure"
 
-systemctl enable mongod &>>$shell_log
-Status $? "Enabled service:: Yup "
+systemctl enable mongod &>>$Logfile
 
-systemctl start mongod &>>$shell_log
+systemctl start mongod &>>$Logfile
 Status $? "Start Mongod Hurray!!"
 
 sed -i '127.0.0.1/0.0.0.0/g' /etc/mongod.conf
 Status $? "Allowing remote connections: kek "
 
-systemctl restart mongod &>>$shell_log
+systemctl restart mongod &>>$Logfile
 Status $? " Mongod restarted and ready to go "
 
 
