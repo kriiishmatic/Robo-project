@@ -39,12 +39,8 @@ echo " Script started at :: $(date) " | tee -a $Logfile
 echo -e "Installing $G NodeJS $N "
 
 dnf module disable nodejs -y &>>$Logfile
-Status $? "Disabled the node"
-
 dnf module enable nodejs:20 -y 
-Status $? "enabled the node"
 dnf install nodejs -y &>>$Logfile
-Status $? "installed the node"
 
 id roboshop &>>$Logfile
 if [ $? -ne 0 ]; then
