@@ -52,6 +52,6 @@ mysql_secure_installation --set-root-pass RoboShop@1 &>>$Logfile
 Status $? "Setting password"
 
 End=$(date +%s)
-Time=(( $Start - $End ))
+Time=$(( $Start - $End ))
 
 echo  -e " TIME TAKEN TO FINISH INSTALATION ::: $G $Time $N "
