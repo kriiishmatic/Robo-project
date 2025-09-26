@@ -112,10 +112,4 @@ Status $? "Restarted the service"
 
 echo -e " Loading products into DB and $G restarted the catalogue $N "
 
-telnet -lntp 
-Status $? "Checking the Ports"
-
-http://localhealth:8080/
-Status $? "Node health"
-
 
