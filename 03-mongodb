@@ -35,10 +35,16 @@ echo " Script started at :: $(date) " | tee -a $Logfile
 
 Status(){
     if [ $1 -ne 0 ]; then
-    echo -e " $R Failed $N to install $2  " | tee -a $Logfile
+    echo -e " $R Failed $N  $2  " | tee -a $Logfile
     exit 1
 else
-    echo -e "$G Sucessfully $N installed $2 " | tee -a $Logfile
+    echo -e "$G Sucessfully $N $2 " | tee -a $Logfile
 fi
 }
+
+cp mongo.repo /etc/yum.repos.d/mongo.repo
+Status $? 
+
+dnf install mongodb-org -y 
+Status $? "Installed mongodb"
 
