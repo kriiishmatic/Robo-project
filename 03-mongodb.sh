@@ -53,7 +53,7 @@ systemctl enable mongod &>>$Logfile
 systemctl start mongod &>>$Logfile
 Status $? "Start Mongod Hurray!!"
 
-sed -i '127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
 Status $? "Allowing remote connections: kek "
 
 systemctl restart mongod &>>$Logfile
