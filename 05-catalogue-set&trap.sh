@@ -2,7 +2,7 @@
 #colours
 #####################
 
-mongodIP="mongodb.kriiishmatic.fun"
+mongodIP="mongod.kriiishmatic.fun"
 
 
 R="\e[31m"
@@ -75,7 +75,7 @@ cp $DIR/mongo.repo /etc/yum.repos.d/mongo.repo
 
 dnf install mongodb-mongosh -y &>>$Logfile
 
-INDEX=$(mongosh mongodb.kriiishamtic.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')") #### this one gives you a value 0 and nehatice
+INDEX=$(mongosh mongod.kriiishamtic.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')") #### this one gives you a value 0 and nehatice
 if [ $INDEX -le 0 ]; then
 mongosh --host $mongodIP </app/db/master-data.js
     else
