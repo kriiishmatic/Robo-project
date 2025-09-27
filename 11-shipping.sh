@@ -93,21 +93,27 @@ Status $? "Start it "
 dnf install mysql -y &>>$Logfile
 Status $? "Installed mysql "
 
-mysql -h $MysqlDomain -uroot -pRoboShop@1 -e 'use mysql' &>>$Logfile
+# Check if schema already exists
+mysql -h $MysqlDomain -uroot -pRoboShop@1 -e 'show databases like "shipping";' &>>$Logfile
 if [ $? -ne 0 ]; then
+    echo -e " Loading Database Schema ... " | tee -a $Logfile
     mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/schema.sql &>>$Logfile
+    Status $? "Loaded schema.sql"
+
     mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$Logfile
+    Status $? "Loaded app-user.sql"
+
     mysql -h $MysqlDomain -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$Logfile
+    Status $? "Loaded master-data.sql"
 else
-    echo -e " Database Schema is already Loaded $Y skiping $N "
+    echo -e " Database Schema already exists $Y Skipping $N " | tee -a $Logfile
 fi
+
 systemctl restart shipping &>>$Logfile
 Status $? "Restarted the service"
-
-echo -e " Restarted $G shipping $N "
-
 End=$( date +%s )
-Time=$(( $Start - $End ))
+Time=$(( $End - $Start ))
 
-echo -e " Time Taken to setup ::: $G $Time $N "
+echo -e " Time Taken to setup ::: $G $Time $N seconds " | tee -a $Logfile
+
 
