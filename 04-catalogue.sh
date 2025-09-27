@@ -2,7 +2,7 @@
 #colours
 #####################
 
-mongodIP="mongodb.kriiishmatic.fun"
+mongodIP="mongod.kriiishmatic.fun"
 
 
 R="\e[31m"
