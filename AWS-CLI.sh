@@ -6,19 +6,19 @@ Zone_ID="Z0212707MY585LOOEFGA"
 Domain="kriiishmatic.fun"
 
 for instance in $@
-do
-    INSTA_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t3.micro --security-group-ids $SG_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" --query 'Instances[0].InstanceId' --output text)
+ do
+        INSTA_ID=$(aws ec2 run-instances --image-id $AMI_ID --instance-type t3.micro --security-group-ids $SG_ID --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" --query 'Instances[0].InstanceId' --output text)
     
-    if [ $instance != "frontend" ]; then
+        if [ $instance != "frontend" ]; then
 
         IP=$(aws ec2 describe-instances --instance-ids $INSTA_ID --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text )
         Final="$instance.$Domain" # other ec2 
-    else
+        else
         IP=$(aws ec2 describe-instances --instance-ids $INSTA_ID --query 'Reservations[0].Instances[0].PublicIpAddress' --output text	)
         Final=".$Domain" #fronend
-    fi
+         fi
 
-    echo " $instance=$IP "
+         echo " $instance=$IP "
 
     aws route53 change-resource-record-sets \
     --hosted-zone-id $ZONE_ID \
@@ -38,4 +38,4 @@ do
         }]
     }
 
- done 
+  done 
