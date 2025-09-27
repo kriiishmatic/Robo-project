@@ -6,6 +6,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+MysqlDomian="mysql.kriiishmatic.fun"
 
 USERID=$(id -u)
 
@@ -13,7 +14,7 @@ if [ $USERID -ne 0 ]; then
     echo -e " $R Get sudo access BOZO $N "
     exit 3
 fi
-MysqlDomian="mysql.kriiishmatic.fun"
+
 
 #creating logs files
 ####################
