@@ -57,6 +57,6 @@ systemctl start redis &>>$Logfile
 Status $? " starting redis "
 
 End=$(date +%s)
-Time=(($Start-$End))
+Time=$(( $Start - $End ))
 
 echo  -e " TIME TAKEN TO FINISH INSTALATION ::: $G $Time $N "
