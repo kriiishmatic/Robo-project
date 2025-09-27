@@ -7,13 +7,25 @@ Domain="kriiishmatic.fun"
 
 for instance in "$@"
 do
-    INSTA_ID=$(aws ec2 run-instances --image-id "$AMI_ID" --instance-type t3.micro --security-group-ids "$SG_ID" --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" --query 'Instances[0].InstanceId' --output text)
+    INSTA_ID=$(aws ec2 run-instances \
+        --image-id "$AMI_ID" \
+        --instance-type t3.micro \
+        --security-group-ids "$SG_ID" \
+        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
+        --query 'Instances[0].InstanceId' \
+        --output text)
     
     if [ "$instance" != "frontend" ]; then
-        IP=$(aws ec2 describe-instances --instance-ids "$INSTA_ID" --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)
+        IP=$(aws ec2 describe-instances \
+            --instance-ids "$INSTA_ID" \
+            --query 'Reservations[0].Instances[0].PrivateIpAddress' \
+            --output text)
         Final="$instance.$Domain"   # other ec2 
     else
-        IP=$(aws ec2 describe-instances --instance-ids "$INSTA_ID" --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+        IP=$(aws ec2 describe-instances \
+            --instance-ids "$INSTA_ID" \
+            --query 'Reservations[0].Instances[0].PublicIpAddress' \
+            --output text)
         Final="$Domain"             # frontend (root domain)
     fi
 
