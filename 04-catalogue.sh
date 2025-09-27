@@ -99,7 +99,7 @@ Status $? "Mongo repo is here"
 dnf install mongodb-mongosh -y &>>$Logfile
 Status $? "installed the mongoin in catalogue "
 
-INDEX=$(mongosh mongod.kriiishamtic.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')") #### this one gives you a value 0 and nehatice
+INDEX=$(mongosh $mongodIP --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')") #### this one gives you a value 0 and nehatice
 if [ $INDEX -le 0 ]; then
 mongosh --host $mongodIP </app/db/master-data.js
     else
